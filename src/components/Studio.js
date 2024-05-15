@@ -1,8 +1,9 @@
 "use client"
 import {useState, useEffect} from "react"
 import Image from "next/image"
-import Room from './Room'
+import RoomCard from './RoomCard'
 import Review from './Review'
+import Contact from './Contact'
 
 const getLines = text => {
 	const lines = text.split("\n")
@@ -40,12 +41,12 @@ export default function Studio() {
 					Другие инструменты — 50 ₽`,
 			contacts: [
 				{
-					title: 'Телефон',
+					title: 'phone',
                     value: '+7 (999) 999-99-99'
 				},
 				{
 					title: 'telegram',
-					value: '@tema_studio'
+					value: '@temasaur'
 				}
 			],
 			rooms: [
@@ -89,13 +90,12 @@ export default function Studio() {
 				<h1 className="text-2xl font-bold mb-3">{studio.title}</h1>
 				<span className="text-secondary block mb-4">{studio.desc}</span>
 
-				<div className="flex text-lg gap-10">
+				<div className="flex text-lg gap-10 items-center">
 					<span>★ {studio.rating}</span>
 					<span>🕔 {studio.openTime} — {studio.closeTime}</span>
 					{studio.contacts && studio.contacts.map((contact, index) =>
                         <div key={index} className="flex items-center gap-2">
-                            <span className="text-secondary">{contact.title}:</span>
-                            <span className="text-secondary">{contact.value}</span>
+							<Contact contact={contact} />
                         </div>
 					)}
 				</div>
@@ -112,7 +112,7 @@ export default function Studio() {
 				<h2 className="text-lg font-semibold mb-3 relative">Комнаты:</h2>
 				<div className="rooms flex justify-between gap-4 flex-wrap mx-auto conte">{
 					studio.rooms.map((room, index) =>
-						<Room room={room} key={index} />
+						<RoomCard room={room} key={index} />
 					)
 				}</div>
 			</div>
