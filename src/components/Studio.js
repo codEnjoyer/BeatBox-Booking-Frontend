@@ -4,6 +4,8 @@ import Image from "next/image"
 import RoomCard from './RoomCard'
 import Review from './Review'
 import Contact from './Contact'
+import { get, getDateTimeTime } from "@/utils/requests"
+
 
 const getLines = text => {
 	const lines = text.split("\n")
@@ -16,7 +18,69 @@ const getLines = text => {
 	})
 }
 
-export default function Studio() {
+const getContacts = (data) => {
+	const translated = [
+		["site_url", "site"],
+		["contact_phone_number", "phone"],
+		["tg", "tg"],
+		["vk", "vk"],
+		["whats_app", "wa"]
+	]
+
+	const contacts = {}
+	for (let [x, y] in translated) {
+		if (data[x])
+			contacts.push({
+				title: y,
+				value: data[x]
+			})
+	}
+}
+
+const translate = (data) => {
+	return {
+		title: data.name,
+		image: "https://placehold.co/800x240.png",
+		desc: data.description,
+		openTime: getDateTimeTime(data.opening_at),
+		closeTime: getDateTimeTime(data.closing_at),
+		contacts: getContacts(data)
+	}
+}
+
+const mergeReviews = (studio, reviews) => {
+	const dataReviews = []
+	// {
+	// 	rating: 4,
+	// 	text: 'Очень красивая студия, музыканты очень красивые',
+	// 	room: 'Studio 1',
+	// },
+	let ratingSum = 0
+	for (const review of reviews) {
+		ratingSum += review.grade
+		dataReviews.push({
+            rating: review.grade,
+            text: review.text,
+            room: review.date
+        })
+	}
+	return {
+		...studio,
+        rating: ratingSum / reviews.length,
+		reviews: dataReviews,
+	}
+}
+
+const getStudio = async (id) => {
+	return await get("/studios/" + id)
+}
+
+const getReviews = async (id) => {
+	return await get("/studios/" + id + "/reviews")
+}
+
+
+export default function Studio({ id }) {
 	const [studio, setStudio] = useState({
 		title: "",
 		photo: "",
@@ -29,7 +93,18 @@ export default function Studio() {
 	})
 
 	useEffect(() => {
-		setStudio({
+		const setData = async () => {
+			const [studio, reviews] = await Promise.all([getStudio(id), getReviews(id)]);
+			// const data = await getData(id)
+			// const reviews = await getReviews(id)
+			// const
+			console.log(studio, reviews)
+			const data = mergeReviews(studio, reviews);
+			console.log(data)
+			setStudio(translate(data))
+		}
+		setData();
+		/* setStudio({
 			title: "Tema Studio",
 			image: "https://placehold.co/800x240.png",
 			desc: "Самые вкусные пирожки с картошкой",
@@ -42,7 +117,7 @@ export default function Studio() {
 			contacts: [
 				{
 					title: 'phone',
-                    value: '+7 (999) 999-99-99'
+					value: '+7 (999) 999-99-99'
 				},
 				{
 					title: 'telegram',
@@ -80,8 +155,8 @@ export default function Studio() {
 					room: 'Studio 2',
 				}
 			]
-		})
-	}, [setStudio])
+		}) */
+	}, [id])
 
 	return (
 		<article>
@@ -91,12 +166,12 @@ export default function Studio() {
 				<span className="text-secondary block mb-4">{studio.desc}</span>
 
 				<div className="flex text-lg gap-10 items-center">
-					<span>★ {studio.rating}</span>
+					<span>★ {studio.rating ? studio.rating : '—'}</span>
 					<span>🕔 {studio.openTime} — {studio.closeTime}</span>
 					{studio.contacts && studio.contacts.map((contact, index) =>
-                        <div key={index} className="flex items-center gap-2">
+						<div key={index} className="flex items-center gap-2">
 							<Contact contact={contact} />
-                        </div>
+						</div>
 					)}
 				</div>
 			</div>
@@ -111,7 +186,7 @@ export default function Studio() {
 			<div className="rooms mb-6">
 				<h2 className="text-lg font-semibold mb-3 relative">Комнаты:</h2>
 				<div className="rooms flex justify-between gap-4 flex-wrap mx-auto conte">{
-					studio.rooms.map((room, index) =>
+					studio.rooms && studio.rooms.map((room, index) =>
 						<RoomCard room={room} key={index} />
 					)
 				}</div>
