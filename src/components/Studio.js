@@ -4,6 +4,7 @@ import Image from "next/image"
 import RoomCard from './RoomCard'
 import Review from './Review'
 import Contact from './Contact'
+import { studios as data } from '@/mock/data'
 
 const getLines = text => {
 	const lines = text.split("\n")
@@ -16,87 +17,23 @@ const getLines = text => {
 	})
 }
 
-export default function Studio() {
-	const [studio, setStudio] = useState({
-		title: "",
-		photo: "",
-		desc: "",
-		rating: "",
-		openTime: "",
-		closeTime: "",
-		options: "",
-		rooms: []
-	})
-
-	useEffect(() => {
-		setStudio({
-			title: "Tema Studio",
-			image: "https://placehold.co/800x240.png",
-			desc: "Самые вкусные пирожки с картошкой",
-			rating: "4.4",
-			openTime: "10:00",
-			closeTime: "0:00",
-			options: `Кардан — 50 ₽
-					Тарелки — 50 ₽
-					Другие инструменты — 50 ₽`,
-			contacts: [
-				{
-					title: 'phone',
-                    value: '+7 (999) 999-99-99'
-				},
-				{
-					title: 'telegram',
-					value: '@temasaur'
-				}
-			],
-			rooms: [
-				{
-					title: 'Studio 1',
-					price: 300,
-					image: 'https://placehold.co/320x150.png',
-					desc: 'Красивая комната и конкурсы интересные'
-				},
-				{
-					title: 'Studio 2',
-					price: 900,
-					image: 'https://placehold.co/320x150.png',
-					desc: 'Здесь записывались Мэйби Бэйби и Дора'
-				}
-			],
-			reviews: [
-				{
-					rating: 4,
-					text: 'Очень красивая студия, музыканты очень красивые',
-					room: 'Studio 1',
-				},
-				{
-					rating: 5,
-					text: 'Крутая студия, звук хороший, помещения просторные и удобные спасибо создателю сайта за такой удобный сайт',
-					room: 'Studio 1',
-				},
-				{
-					rating: 3,
-					text: 'А мне показалось, что студия пахнет солеными огурцами, а я не люблю соленые огурцы, но сайт крутой поэтому плюс три балла',
-					room: 'Studio 2',
-				}
-			]
-		})
-	}, [setStudio])
+export default function Studio({ id }) {
+	const studio = data.find(s => +s.id === +id)
 
 	return (
 		<article>
 			<div className="top mb-6">
-				<Image className="rounded-2xl bottom-right-shadow mb-6" src={studio.image} width="800" height="240" alt="" />
+				<Image className="rounded-2xl bottom-right-shadow mb-6 max-h-[240px] max-w-full object-cover" src={studio.image} width="800" height="240" alt="" />
 				<h1 className="text-2xl font-bold mb-3">{studio.title}</h1>
 				<span className="text-secondary block mb-4">{studio.desc}</span>
 
 				<div className="flex text-lg gap-10 items-center">
-					<span>★ {studio.rating}</span>
+					<span>★ {studio.rating ? studio.rating : '—'}</span>
 					<span>🕔 {studio.openTime} — {studio.closeTime}</span>
 					{studio.contacts && studio.contacts.map((contact, index) =>
-                        <div key={index} className="flex items-center gap-2">
+						<div key={index} className="flex items-center gap-2">
 							<Contact contact={contact} />
-                        </div>
+						</div>
 					)}
 				</div>
 			</div>
