@@ -49,7 +49,7 @@ export default function Studio({ id }) {
 				<h2 className="text-lg font-semibold mb-3 relative">Комнаты:</h2>
 				<div className="rooms flex justify-between gap-4 flex-wrap mx-auto conte">{
 					studio.rooms.map((room, index) =>
-						<RoomCard room={room} key={index} />
+						<RoomCard room={room} studioId={ id } key={index} />
 					)
 				}</div>
 			</div>

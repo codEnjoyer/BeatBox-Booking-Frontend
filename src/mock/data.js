@@ -25,13 +25,15 @@ export const studios = [
         title: 'Studio 1',
         price: 300,
         image: 'https://avatars.mds.yandex.net/get-altay/4255939/2a00000182bc645d41cc85c85485e7f11218/orig',
-        desc: 'Красивая комната и конкурсы интересные'
+        desc: 'Красивая комната и конкурсы интересные',
+        id: 1,
       },
       {
         title: 'Studio 2',
         price: 900,
         image: 'https://avatars.mds.yandex.net/get-altay/2809325/2a00000174112d0ca99d1dbbbf6d44bf42eb/orig',
-        desc: 'Здесь записывались Мэйби Бэйби и Дора'
+        desc: 'Здесь записывались Мэйби Бэйби и Дора',
+        id: 2,
       }
     ],
     reviews: [
@@ -82,8 +84,9 @@ export const studios = [
       {
         title: 'Studio',
         price: 350,
-        image: 'https://avatars.mds.yandex.net/get-altay/4255939/2a00000182bc645d41cc85c85485e7f11218/orig',
-        desc: 'Просторная студия со всеми плюшками'
+        image: 'https://i.pinimg.com/originals/c4/bf/b2/c4bfb22de1f23841c83fc3023930fd88.png',
+        desc: 'Просторная студия со всеми плюшками',
+        id: 3,
       },
     ],
     reviews: [
@@ -134,22 +137,26 @@ export const studios = [
       {
         title: 'Синяя комната',
         price: 350,
-        image: 'https://avatars.mds.yandex.net/get-altay/4255939/2a00000182bc645d41cc85c85485e7f11218/orig',
+        image: 'https://rusinfo.info/wp-content/uploads/0/2/e/02ea28b04247fba2ca8a804b1762ccbc.jpg',
+        id: 4,
       },
       {
         title: 'Деревянная комната',
         price: 400,
-        image: 'https://avatars.mds.yandex.net/get-altay/4255939/2a00000182bc645d41cc85c85485e7f11218/orig',
+        image: 'https://soundex.ru/forum/uploads/monthly_2019_02/32C9C9CA-971E-4C45-9E6A-01FF313B011E.jpeg.857b8aceccf9f78df9f75d9b8eacfef2.jpeg',
+        id: 5,
       },
       {
         title: 'Цветная комната',
         price: 300,
-        image: 'https://avatars.mds.yandex.net/get-altay/4255939/2a00000182bc645d41cc85c85485e7f11218/orig',
+        image: 'https://sun9-58.userapi.com/impg/oNMWnUFoJyOlL1DAHfmtk5CjIi73Iog-tnoM_g/H3XjAFgaJls.jpg?size=807x500&quality=96&sign=2bafc177651f1038803f07dcdd9fc370&c_uniq_tag=Lpo9zjztWaU4cvlEZy1JFFxn7VNBJUT1GwTXR_C6cNs&type=album',
+        id: 6,
       },
       {
         title: 'Малая комната',
         price: 200,
-        image: 'https://avatars.mds.yandex.net/get-altay/4255939/2a00000182bc645d41cc85c85485e7f11218/orig',
+        image: 'https://bogatyr.club/uploads/posts/2023-02/thumbs/1677606772_bogatyr-club-p-pomeshchenie-dlya-repetitsii-foni-krasivo-83.jpg',
+        id: 7,
       },
     ],
     reviews: [
@@ -188,8 +195,6 @@ export const studios = [
     closeTime: "23:00",
     id: 4,
 
-    options: `Тарелки — 50 ₽
-        Инструменты — 50 ₽`,
     contacts: [
       {
         title: 'phone',
@@ -202,14 +207,18 @@ export const studios = [
     ],
     rooms: [
       {
-        title: 'Синяя комната',
-        price: 350,
-        image: 'https://avatars.mds.yandex.net/get-altay/4255939/2a00000182bc645d41cc85c85485e7f11218/orig',
+        title: 'Дешевая комната',
+        price: 150,
+        image: 'https://colodu.club/uploads/posts/2022-10/1666213926_24-colodu-club-p-muzikalnaya-komnata-dizain-oboi-27.jpg',
+        desc: 'Тесная комната для всех',
+        id: 8,
       },
       {
-        title: 'Деревянная комната',
-        price: 400,
-        image: 'https://avatars.mds.yandex.net/get-altay/4255939/2a00000182bc645d41cc85c85485e7f11218/orig',
+        title: 'Дорогая комната',
+        price: 900,
+        image: 'https://www.politusic.com/wp-content/uploads/2013/11/drums-in-larg-room-sonic-ranch-studio.jpg',
+        desc: 'Просторная комната для всех',
+        id: 9,
       },
     ],
   }

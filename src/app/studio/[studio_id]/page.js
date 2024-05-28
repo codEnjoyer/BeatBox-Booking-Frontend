@@ -6,7 +6,7 @@ export default function StudioPage({ params }) {
     <>
       <Header />
       <main className="container">
-        <Studio id={params.slug} />
+        <Studio id={params.studio_id} />
       </main>
     </>
   );
