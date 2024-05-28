@@ -1,12 +1,12 @@
 import Header from "@/components/Header"
-import Room from "@/components/Room"
+import Studio from "@/components/Studio"
 
-export default function RoomPage() {
+export default function StudioPage({ params }) {
   return (
     <>
       <Header />
       <main className="container">
-        <Room room={{title: "Tema studio"}}/>
+        <Studio id={params.studio_id} />
       </main>
     </>
   );
