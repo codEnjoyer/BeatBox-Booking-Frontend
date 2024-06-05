@@ -19,6 +19,16 @@ const getLines = text => {
 
 export default function Studio({ id }) {
 	const studio = data.find(s => +s.id === +id)
+		|| {title: "",
+			image: "",
+			desc: "",
+			rating: "0",
+			openTime: "",
+			closeTime: "",
+			options: "",
+			contacts: [],
+			rooms: [],
+			reviews: []}
 
 	return (
 		<article>
