@@ -137,7 +137,7 @@ export default function Scheduler({from, to, data, storagePath}) {
 		})
 
 		setWeek(week)
-	}, [weekStart, books])
+	}, [weekStart, books, getWeek])
 
 	return <div className="calendar select-none" onMouseUp={stopHolding}>
 		<div className="cal-navigation">
