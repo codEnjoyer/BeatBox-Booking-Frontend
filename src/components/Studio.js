@@ -19,11 +19,21 @@ const getLines = text => {
 
 export default function Studio({ id }) {
 	const studio = data.find(s => +s.id === +id)
+		|| {title: "",
+			image: "",
+			desc: "",
+			rating: "0",
+			openTime: "",
+			closeTime: "",
+			options: "",
+			contacts: [],
+			rooms: [],
+			reviews: []}
 
 	return (
 		<article>
 			<div className="top mb-6">
-				<Image className="rounded-2xl bottom-right-shadow mb-6 max-h-[240px] max-w-full object-cover" src={studio.image || ""} width="800" height="240" alt="" />
+				<Image className="rounded-2xl bottom-right-shadow mb-6 max-h-[240px] max-w-full object-cover" src={studio.image} width="800" height="240" alt="" />
 				<h1 className="text-2xl font-bold mb-3">{studio.title}</h1>
 				<span className="text-secondary block mb-4">{studio.desc}</span>
 
