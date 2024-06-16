@@ -161,7 +161,7 @@ export default function Studio({ id }) {
 	return (
 		<article>
 			<div className="top mb-6">
-				<Image className="rounded-2xl bottom-right-shadow mb-6" src={studio.image} width="800" height="240" alt="" />
+				<Image className="rounded-2xl bottom-right-shadow mb-6 max-h-[240px] max-w-full object-cover" src={studio.image} width="800" height="240" alt="" />
 				<h1 className="text-2xl font-bold mb-3">{studio.title}</h1>
 				<span className="text-secondary block mb-4">{studio.desc}</span>
 
@@ -187,7 +187,7 @@ export default function Studio({ id }) {
 				<h2 className="text-lg font-semibold mb-3 relative">Комнаты:</h2>
 				<div className="rooms flex justify-between gap-4 flex-wrap mx-auto conte">{
 					studio.rooms && studio.rooms.map((room, index) =>
-						<RoomCard room={room} key={index} />
+						<RoomCard room={room} studioId={ id } key={index} />
 					)
 				}</div>
 			</div>

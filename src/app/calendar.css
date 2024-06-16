@@ -1,0 +1,73 @@
+.calendar-grid {
+	display: grid;
+	grid-template-columns: 6ch repeat(7, 1fr);
+}
+
+.cal-navigation {
+	display: flex;
+	justify-content: end;
+	gap: 3rem;
+}
+
+.cal-navigation button {
+	display: flex;
+    /* align-items: center; */
+	justify-content: center;
+	width: 1.7rem;
+	height: 1.7rem;
+	background: #ffffff30;
+}
+.cal-navigation button:hover {
+	cursor: pointer;
+	background: #ffffff20;
+}
+
+.ts-cell:hover{
+	background: #ffffff20;
+}
+
+.ts-event {
+	position: relative;
+	--ts-bg-color: #ffffff30;
+	--content: "Репетиция";
+}
+.ts-active {
+	position: relative;
+	--content: "";
+	--ts-bg-color: #f1bc9470;
+}
+.ts-event::after,
+.ts-active::after {
+	--heck: .25em;
+	position: absolute;
+	top: var(--heck);
+	left: var(--heck);
+	width: calc(100% - var(--heck) * 2);
+	height: calc(100% - var(--heck) * 2);
+	content: var(--content);
+	font-size: .75rem;
+	display: flex;
+	justify-content: center;
+	padding-top: .25em;
+	background: var(--ts-bg-color);
+}
+
+.ts-rows-2 {
+	grid-row: span 2;
+}
+.ts-rows-3 {
+	grid-row: span 3;
+}
+.ts-rows-4 {
+	grid-row: span 4;
+}
+.ts-rows-5 {
+	grid-row: span 5;
+}
+.ts-rows-6 {
+	grid-row: span 6;
+}
+
+/* .ts-active {
+	background: pink
+} */
