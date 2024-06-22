@@ -3,7 +3,7 @@ export const studios = [
     title: "Tema studio",
     image: "https://www.funnyart.club/uploads/posts/2022-02/1644887147_47-www-funnyart-club-p-fon-muzikalnaya-studiya-krasivo-63.jpg",
     desc: "Студия с акцентом на качество звукоизоляции",
-    rating: "4.0",
+    average_grade: "4.0",
     openTime: "10:00",
     closeTime: "22:00",
     id: 1,
@@ -38,17 +38,17 @@ export const studios = [
     ],
     reviews: [
       {
-        rating: 4,
+        grade: 4,
         text: 'Очень красивая студия, музыканты очень красивые',
         room: 'Studio 1',
       },
       {
-        rating: 5,
+        grade: 5,
         text: 'Крутая студия, звук хороший, помещения просторные и удобные спасибо создателю сайта за такой удобный сайт',
         room: 'Studio 1',
       },
       {
-        rating: 3,
+        grade: 3,
         text: 'А мне показалось, что студия пахнет солеными огурцами, а я не люблю соленые огурцы, но сайт крутой поэтому плюс три балла',
         room: 'Studio 2',
       }
@@ -58,11 +58,10 @@ export const studios = [
     title: "Tema studio 2",
     image: "https://styledejouy.ru/images/myz-study-import/37.jpg",
     desc: "Лучшие инструменты в городе",
-    rating: "3.8",
+    average_grade: "3.8",
     openTime: "11:00",
     closeTime: "22:00",
     id: 2,
-
 
     options: `Тарелки — 50 ₽
         Инструменты — 50 ₽`,
@@ -91,22 +90,22 @@ export const studios = [
     ],
     reviews: [
       {
-        rating: 3,
+        grade: 3,
         text: 'Студия отличная, но звукоизоляция могла быть получше',
         room: 'Studio',
       },
       {
-        rating: 4,
+        grade: 4,
         text: 'Отличный сервис, но могли бы предложить больше вариантов аранжировок',
         room: 'Studio',
       },
       {
-        rating: 4,
+        grade: 4,
         text: 'Удобное расположение, но качество звука могло быть выше',
         room: 'Studio',
       },
       {
-        rating: 4,
+        grade: 4,
         text: 'Удобное расписание, но могли бы предлагать больше скидок для студентов',
         room: 'Studio',
       }
@@ -116,7 +115,7 @@ export const studios = [
     title: "Другая студия",
     image: "https://kartinki.pibig.info/uploads/posts/2023-04/1681775348_kartinki-pibig-info-p-muzikalnaya-studiya-kartinki-arti-krasivo-4.jpg",
     desc: "Студия для гитаристов и басистов",
-    rating: "4.6",
+    average_grade: "4.6",
     openTime: "8:00",
     closeTime: "0:00",
     id: 3,
@@ -161,27 +160,27 @@ export const studios = [
     ],
     reviews: [
       {
-        rating: 5,
+        grade: 5,
         text: 'Прекрасный интерьер, создаёт атмосферу творчества',
         room: 'Малая комната',
       },
       {
-        rating: 4,
+        grade: 4,
         text: 'Отличное соотношение цены и качества, но можно было бы добавить больше видов услуг',
         room: 'Синяя комната',
       },
       {
-        rating: 5,
+        grade: 5,
         text: 'Регулярные обновления и улучшения, студия становится лучше',
         room: 'Деревянная комната',
       },
       {
-        rating: 4,
+        grade: 4,
         text: 'Прекрасный интерьер, но хотелось бы больше света в помещении',
         room: 'Синяя комната',
       },
       {
-        rating: 5,
+        grade: 5,
         text: 'Прекрасное место для записи. Отличный сервис. Удобное время работы',
         room: 'Синяя комната',
       }

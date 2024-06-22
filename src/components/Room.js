@@ -24,7 +24,7 @@ export default function Room({ room, studio }) {
             <div className="flex justify-between mb-4">
                 <div className="flex items-center gap-10">
                     <h1 className="text-2xl font-semibold">{room.title}</h1>
-                    <Link href="/" className="text-text/70 block">{studio.title}</Link>
+                    <Link href={`/studio/${studio.id}`} className="text-text/70 block">{studio.title}</Link>
                 </div>
                 <span className="text-lg">Цена: от {room.price} ₽</span>
             </div>

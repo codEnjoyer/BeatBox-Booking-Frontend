@@ -33,33 +33,43 @@ export default function Studio({ id }) {
 	return (
 		<article>
 			<div className="top mb-6">
-				<Image className="rounded-2xl bottom-right-shadow mb-6 max-h-[240px] max-w-full object-cover" src={studio.image} width="800" height="240" alt="" />
-				<h1 className="text-2xl font-bold mb-3">{studio.title}</h1>
-				<span className="text-secondary block mb-4">{studio.desc}</span>
+				<div className="bg-black relative">
+					<div className="wide-image-parent">
+						<Image className="rounded-2xl bottom-right-shadow mb-6 max-h-[360px] max-w-full object-cover" src={studio.image} width={1040} height={360} alt="" />
+					</div>
+					<div className="absolute container left-1/2 -translate-x-1/2 bottom-6">
+						<h1 className="text-2xl font-bold mb-1.5">{studio.title}</h1>
+						<span className="text-secondary block mb-6">{studio.desc}</span>
 
-				<div className="flex text-lg gap-10 items-center">
-					<span>★ {studio.rating ? studio.rating : '—'}</span>
-					<span>🕔 {studio.openTime} — {studio.closeTime}</span>
-					{studio.contacts && studio.contacts.map((contact, index) =>
-						<div key={index} className="flex items-center gap-2">
-							<Contact contact={contact} />
+						<div className="flex text-lg mb-4 gap-10 items-center">
+							<span>★ {studio.average_grade ? studio.average_grade : '—'}</span>
+							<span>🕔 {studio.openTime} — {studio.closeTime}</span>
 						</div>
-					)}
+
+						<div className="flex gap-6 items-center">
+							{studio.contacts && studio.contacts.map((contact, index) =>
+								<div key={index} className="flex items-center gap-2">
+									<Contact contact={contact}/>
+								</div>
+							)}
+						</div>
+					</div>
 				</div>
 			</div>
 
-			{studio.options &&
-				<div className="mb-6 options">
-					<h2 className="text-lg font-semibold mb-3 relative">Дополнительные опции</h2>
-					{getLines(studio.options)}
-				</div>
-			}
+			<div className="container">
+				{studio.options &&
+					<div className="mb-6 options">
+						<h2 className="text-lg font-semibold mb-3 relative">Дополнительные опции</h2>
+						{getLines(studio.options)}
+					</div>
+				}
 
-			<div className="rooms mb-6">
-				<h2 className="text-lg font-semibold mb-3 relative">Комнаты:</h2>
-				<div className="rooms flex justify-between gap-4 flex-wrap mx-auto conte">{
-					studio.rooms.map((room, index) =>
-						<RoomCard room={room} studioId={ id } key={index} />
+				<div className="rooms mb-6">
+					<h2 className="text-lg font-semibold mb-3 relative">Комнаты:</h2>
+					<div className="rooms flex justify-between gap-4 flex-wrap mx-auto conte">{
+						studio.rooms.map((room, index) =>
+							<RoomCard room={room} studioId={id} key={index}/>
 					)
 				}</div>
 			</div>
@@ -74,6 +84,7 @@ export default function Studio({ id }) {
 					</div>
 				</div>
 			}
+			</div>
 		</article>
 	)
 }
