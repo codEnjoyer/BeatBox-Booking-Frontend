@@ -1,6 +1,6 @@
 import Header from "@/components/Header"
 import Room from "@/components/Room"
-import { studios } from "@/mock/data"
+import { studios } from "@/data/data"
 
 export default function RoomPage({ params }) {
 	const studio = studios.find((studio) => +studio.id === +params.studio_id)

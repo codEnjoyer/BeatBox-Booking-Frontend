@@ -4,7 +4,7 @@ import Image from "next/image"
 import RoomCard from './RoomCard'
 import Review from './Review'
 import Contact from './Contact'
-import { studios as data } from '@/mock/data'
+import { studios as data } from '@/data/data'
 
 const getLines = text => {
 	const lines = text.split("\n")

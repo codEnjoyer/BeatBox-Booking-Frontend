@@ -3,7 +3,7 @@ import {useState, useEffect} from "react"
 import Image from "next/image"
 import Header from "@/components/Header"
 import StudioCard from "@/components/StudioCard"
-import { studios } from '@/mock/data'
+import { studios } from '@/data/data'
 
 
 export default function Home() {
