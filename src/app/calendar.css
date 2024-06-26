@@ -45,6 +45,7 @@
 	width: calc(100% - var(--heck) * 2);
 	height: calc(100% - var(--heck) * 2);
 	content: var(--content);
+	overflow: clip;
 	font-size: .75rem;
 	display: flex;
 	justify-content: center;
@@ -66,6 +67,21 @@
 }
 .ts-rows-6 {
 	grid-row: span 6;
+}
+.ts-rows-7 {
+	grid-row: span 7;
+}
+.ts-rows-8 {
+	grid-row: span 8;
+}
+.ts-rows-9 {
+	grid-row: span 9;
+}
+.ts-rows-10 {
+	grid-row: span 10;
+}
+.ts-rows-12 {
+	grid-row: span 12;
 }
 
 /* .ts-active {

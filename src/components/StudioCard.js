@@ -1,17 +1,21 @@
 import Image from "next/image"
 import Link from "next/link"
+import { openTime } from "@/utils/format";
 
 
 export default function StudioCard({ studio }) {
-	return <Link href={`/studio/${studio.id}`} className="block cool-card max-w-[360px]">
-		<div className="top flex justify-between mb-4 items-center">
-			<span className="title block text-lg font-semibold">{studio.title}</span>
-			<div className="details flex gap-4 text-sm text-secondary">
-				<span>{studio.openTime} — {studio.closeTime}</span>
-				<span className="title">★ {studio.rating}</span>
+	return <Link href={`/studio/${studio.id}`} className="studio-card bg-black rounded-xl overflow-hidden shadow-black/20 shadow-md block max-w-[256px]">
+		<div className="image-parent">
+			<Image className="mb-4 w-[256px] h-[256px] object-cover" src={studio.image} alt="" width={300} height={300} />
+		</div>
+		<div className="top flex flex-col mb-4 mx-4">
+			<span className="title block text-lg font-semibold">{studio.name}</span>
+			<div className="details flex flex-col gap-2 text-sm my-1.5 text-secondary">
+				<span>{openTime(studio)}</span>
+				{studio.average_grade !== 0 &&
+					<span className="title">★ {studio.average_grade}</span>
+				}
 			</div>
 		</div>
-		<Image className="mb-4 max-w-[320px] max-h-[150px] object-cover" src={studio.image} alt="" width={320} height={150} />
-		{studio.desc}
 	</Link>
 }

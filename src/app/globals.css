@@ -37,3 +37,56 @@ body {
                -20px -20px 60px #2e2e2e;
   /* z-index: -1; */
 }
+
+.wide-image-parent {
+  position: relative;
+  width: fit-content;
+}
+.wide-image-parent {
+  margin: 0 auto;
+}
+.wide-image-parent::after {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  content: "";
+  display: block;
+  background: linear-gradient(90deg, #000000ff, #00000000, #00000000, #000000ff);
+}
+
+:not(.hero) > .wide-image-parent::after {
+  background: linear-gradient(90deg, #000000ff, #00000090, #00000090, #000000ff);
+}
+
+.wide-image-parent img {
+  position: relative;
+}
+.wide-image-parent Image::after {
+  width: 100%;
+  height: 100%;
+  /*left: 0;*/
+  /*top: 0;*/
+  position: absolute;
+  content: "";
+  display: block;
+  background: red!important;
+}
+
+.studio-card :is(.image-parent, .wide-image-parent) {
+  position: relative;
+}
+
+:is(.studio-card, .room-card) :is(.image-parent, .wide-image-parent)::after {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  content: "";
+  background: linear-gradient(180deg, #00000000, #00000000, #00000000, #000000);
+  /*background: red;*/
+}
+

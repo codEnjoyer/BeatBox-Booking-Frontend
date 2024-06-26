@@ -16,6 +16,7 @@ module.exports = {
         "bg": "#282828",
         "text": "#EEEBEA",
         "secondary": "#BAB1AE",
+        "accent": "#DA6C3D",
       },
       container: {
         center: true,

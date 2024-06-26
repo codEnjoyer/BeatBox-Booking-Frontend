@@ -97,12 +97,15 @@ export default function Scheduler({from, to, data, storagePath}) {
 		bookStart.current = dateTimeFromInner(min).format("H") + ":00"
 		bookEnd.current = +dateTimeFromInner(max).format("H") + 1 + ":00"
 		bookDate.current = dateTimeFromInner(min).format("D MMM")
+		console.log(bookStart.current, bookEnd.current)
 		setShowConfirmation(true);
 	}
 
 	const addBooks = () => {
 		const start = moment(bookDate.current+bookStart.current, 'D MMMH:mm')
 		const end = moment(bookDate.current+bookEnd.current, 'D MMMH:mm')
+
+		console.log(start, end)
 
 		const newBooks = [
 			...books, [
@@ -126,18 +129,25 @@ export default function Scheduler({from, to, data, storagePath}) {
 			const end = moment(book[1])
 			const date = innerDateFormat(start)
 			const length = moment.duration(end.diff(start)).asHours()
+			// console.log(start, end, date, length)
 
 			if (!week[date])
 				return;
 
-			week[date][start.format('HH')] = length
+			// console.log(+start.format('HH'))
+
+			week[date][+start.format('HH')] = length
 			for (let i = 1; i < length; i++) {
 				week[date][+start.format('HH') + i + ""] = -1
+			}
+			for (let [k, v] of Object.entries(week)) {
+				if (v.filter(x => x).length > 0)
+					console.log(k, v)
 			}
 		})
 
 		setWeek(week)
-	}, [weekStart, books, getWeek])
+	}, [weekStart, books])
 
 	return <div className="calendar select-none" onMouseUp={stopHolding}>
 		<div className="cal-navigation">

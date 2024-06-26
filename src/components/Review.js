@@ -1,11 +1,13 @@
 export default function Review({review}) {
 	return (
-        <div className="cool-card max-w-[540px] w-full">
-			<div className="top flex items-center justify-between mb-2">
-				<span className="text-lg text-secondary font-semibold">★ {review.rating} / 5</span>
-				<span className="text-secondary ">{review.room}</span>
+		<div className=" max-w-[540px] bg-[#222] w-full rounded-xl p-4">
+			<div className="top flex items-center gap-4">
+				<span className="font-semibold">nagibator</span>
+				<span className="text-lg text-accent font-semibold">★ {review.grade} / 5</span>
 			</div>
-            <p>{review.text}</p>
-        </div>
-    )
+			<p className="text-secondary text-sm mb-2">{review.room}</p>
+
+			<p>{review.text}</p>
+		</div>
+	)
 }
