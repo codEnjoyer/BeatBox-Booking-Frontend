@@ -69,6 +69,16 @@ export default function Room({ roomId, studioId }) {
 				to={closeTime}
 				data={data}
 				storagePath={storagePath}/>
+
+			{room.equipment && <>
+				<h2 className="text-2xl font-semibold mb-3 mt-6">Оборудование</h2>
+				<p>{room.equipment}</p>
+			</>}
+
+			{room.additional_services && <>
+				<h2 className="text-2xl font-semibold mb-3 mt-6">Дополнительные услуги</h2>
+				<p>{room.additional_services}</p>
+			</>}
 		</div>
 	</article>
 }

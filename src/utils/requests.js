@@ -2,7 +2,11 @@ const BASE_URL = 'http://158.160.58.186/api/v1'
 
 export const get = async (url, headers={}) => {
     const res = await fetch(BASE_URL + url, {
-        headers: headers
+        headers: {
+            ...headers,
+            "Content-Type": "application/json",
+            "Haha": 'Hoho',
+        }
     })
     const data = await res.json()
     return data
@@ -10,9 +14,7 @@ export const get = async (url, headers={}) => {
 
 export const getAuth = async (url, token) => {
     return await get(url, {
-        headers: {
-            'Authorization': token
-        }
+            'Authorization': 'Bearer ' + token
     })
 }
 

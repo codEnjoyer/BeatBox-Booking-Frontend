@@ -16,10 +16,11 @@ export default function Login() {
         if (res.access_token) {
             write('token', res.access_token)
             write('email', data.get('username'))
-            const username = await getAuth('/users/me');
-            console.log(username)
-            debugger;
-            write('username', username)
+            const fuckyou = await getAuth('/users/me', res.access_token);
+
+            // console.log(fuckyou)
+            // debugger;
+            write('nickname', fuckyou.nickname)
             window.location.replace(window.location.href.replace('/login', ''))
         }
     }
