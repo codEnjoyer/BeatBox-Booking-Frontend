@@ -4,7 +4,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "BeatBox Booking",
+  name: "BeatBox Booking",
   description: "Система бронирования музыкальных студий",
 };
 

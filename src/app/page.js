@@ -3,10 +3,24 @@ import {useState, useEffect} from "react"
 import Image from "next/image"
 import Header from "@/components/Header"
 import StudioCard from "@/components/StudioCard"
-import { studios } from '@/data/data'
+import { get, getImage } from '@/utils/requests'
 
 
 export default function Home() {
+	const [studios, setStudios] = useState([])
+
+	useEffect(() => {
+		(async () => {
+			const __studios = await get('/studios')
+			console.log(__studios)
+			const _studios = []
+			for (const studio of __studios) {
+				const image = await getImage(`/studios/${studio.id}/banner`)
+				_studios.push({...studio, image: image})
+			}
+			setStudios(_studios)
+		})()
+	}, [])
 	return (
 		<>
 			<Header />

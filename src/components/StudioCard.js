@@ -1,5 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
+import { openTime } from "@/utils/format";
 
 
 export default function StudioCard({ studio }) {
@@ -8,10 +9,10 @@ export default function StudioCard({ studio }) {
 			<Image className="mb-4 w-[256px] h-[256px] object-cover" src={studio.image} alt="" width={300} height={300} />
 		</div>
 		<div className="top flex flex-col mb-4 mx-4">
-			<span className="title block text-lg font-semibold">{studio.title}</span>
+			<span className="title block text-lg font-semibold">{studio.name}</span>
 			<div className="details flex flex-col gap-2 text-sm my-1.5 text-secondary">
-				<span>{studio.openTime} — {studio.closeTime}</span>
-				{studio.average_grade &&
+				<span>{openTime(studio)}</span>
+				{studio.average_grade !== 0 &&
 					<span className="title">★ {studio.average_grade}</span>
 				}
 			</div>

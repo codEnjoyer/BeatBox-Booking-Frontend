@@ -12,8 +12,8 @@ export default function RoomCard({ room, studioId }) {
 		</div>
 
 		<div className="top flex flex-col justify-between mb-1.5 p-3">
-			<span className="title block text-lg font-semibold">{room.title}</span>
-			<p className="text-sm mt-1.5 text-secondary">{room.desc}</p>
+			<span className="title block text-lg font-semibold">{room.name}</span>
+			<p className="text-sm mt-1.5 text-secondary">{room.description}</p>
 		</div>
 
 	</Link>
