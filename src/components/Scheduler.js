@@ -17,6 +17,7 @@ export default function Scheduler({from, to, data, studioId, roomId}) {
 	const [holding, setHolding] = useState([false, []]);
 	const [showConfirmation, setShowConfirmation] = useState(false);
 	const [detail, setDetail] = useState("")
+	const [date, setDate] = useState(null);
 
 	useEffect(() => {setBooks(data)}, [data])
 
@@ -105,6 +106,7 @@ export default function Scheduler({from, to, data, studioId, roomId}) {
 		bookStart.current = dateTimeFromInner(min).format("H") + ":00"
 		bookEnd.current = +dateTimeFromInner(max).format("H") + 1 + ":00"
 		bookDate.current = dateTimeFromInner(min).format("D MMM, YYYY ")
+		setDate(dateTimeFromInner(min))
 		// console.log(bookStart.current, bookEnd.current)
 		setShowConfirmation(true);
 	}
@@ -126,6 +128,39 @@ export default function Scheduler({from, to, data, studioId, roomId}) {
 		}
 		return true
 		// debugger;
+	}
+
+	const addBooks2 = async e => {
+		console.log('pussy')
+		e.preventDefault()
+
+		const start = moment(bookDate.current + bookStart.current, 'D MMM, YYYY H:mm')
+		const end = moment(bookDate.current + bookEnd.current, 'D MMM, YYYY H:mm')
+		console.log(start, end)
+
+		const name = 'closed'
+
+		const data = {
+			name: 'closed',
+			surname: null,
+			starts_at: start.toISOString(),
+			ends_at: end.toISOString()
+		}
+		const ok = await createBook(data)
+		if (!ok)
+			return
+
+		const newBooks = [
+			...books, [
+				start.format(),
+				end.format(),
+				true,
+				name === 'closed'
+			]]
+
+		setBooks(newBooks)
+		// setBookLocalStorage(newBooks)
+		setShowConfirmation(false);
 	}
 
 	const addBooks = async (e) => {
@@ -177,35 +212,30 @@ export default function Scheduler({from, to, data, studioId, roomId}) {
 
 			const date = innerDateFormat(start)
 			const length = moment.duration(end.diff(start)).asHours()
-			// console.log(start, end, date, length)
 
 			if (!week[date])
 				return;
 
-			// console.log(+start.format('HH'))
-
-			if (my)
-				week[date][+start.format('HH')] = [100 + length, book.id]
-			else if (closed)
+			if (closed)
 				week[date][+start.format('HH')] = [1000 + length, book.id]
+			else if (my)
+				week[date][+start.format('HH')] = [100 + length, book.id]
 			else
 				week[date][+start.format('HH')] = [length, book.id]
 			for (let i = 1; i < length; i++) {
 				week[date][+start.format('HH') + i + ""] = [-1, null]
 			}
-			// for (let [k, v] of Object.entries(week)) {
-			// 	if (v.filter(x => x).length > 0)
-			// 		console.log(k, v)
-			// }
+
 		})
 
 		setWeek(week)
 	}, [weekStart, books])
 
-	const getEnd = (date) => {
+	const getEnd = (dt) => {
 		// TODO: добавить state для даты
-		if (date === '24:00')
-			return '0:00'
+		if (dt === '24:00')
+			return `0:00, ${date.add(12, 'hours').format('D MMM')}`
+		return dt
 	}
 
 	return <div className="calendar select-none" onMouseUp={stopHolding}>
@@ -275,6 +305,11 @@ export default function Scheduler({from, to, data, studioId, roomId}) {
 					})}
 				</>
 			})}
+			<div className="legend">
+				<div className="ts2-event">Занято</div>
+				<div className="ts2-closed">Закрыто</div>
+				<div className="ts2-my">Мои репетиции</div>
+			</div>
 		</div>
 		{detail.length > 0 &&
 			<div className="block border-orange-700 border-2 mx-auto w-fit px-8 py-2">Ошибка!<br/>
@@ -288,6 +323,7 @@ export default function Scheduler({from, to, data, studioId, roomId}) {
 				<p className="mb-1"><label htmlFor="name">Забронировать на имя:</label></p>
 				<p className="mb-4"><input type="text" name="name" id="name" className="text-bg p-1" required/></p>
 				<button type="submit" className="px-5 py-1 bg-accent mr-4">OK</button>
+				{read('studio_id') && <button type="button" className="px-5 mr-8 py-1 bg-white/20" onClick={addBooks2}>Закрыть</button>}
 				<button type="button" className="px-5 py-1 bg-white/20" onClick={cancel}>Отмена</button>
 			</form>}
 	</div>

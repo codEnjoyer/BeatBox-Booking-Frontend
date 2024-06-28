@@ -97,6 +97,33 @@
 	grid-row: span 12;
 }
 
-/* .ts-active {
-	background: pink
-} */
+.legend {
+	width: 600px;
+	display: flex;
+	gap: 6rem;
+}
+
+.legend > div {
+	position: relative;
+	left: 3rem;
+}
+.ts2-event {
+	--ts-bg-color: #ffffff30;
+}
+.ts2-closed {
+	--ts-bg-color: #945151;
+}
+.ts2-my {
+	--ts-bg-color: #96d552;
+}
+.legend > div::before {
+	content: "";
+	display: block;
+	position: absolute;
+	width: 1.6rem;
+	height: 1.6rem;
+	background: var(--ts-bg-color);
+	border-radius: 5px;
+	top: .0rem;
+	left: -2.5rem;
+}
