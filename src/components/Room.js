@@ -2,16 +2,30 @@
 import Scheduler from "./Scheduler";
 import Link from "next/link";
 import {useState, useEffect} from "react";
-import {get} from "@/utils/requests";
+import {get, getAuth} from "@/utils/requests";
 import Image from "next/image";
 import {openTime} from "@/utils/format";
 import Contact from "@/components/Contact";
 import {getImage} from "@/utils/requests";
+import {read} from "@/utils/storage";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faPen} from "@fortawesome/free-solid-svg-icons";
 
 export default function Room({ roomId, studioId }) {
 	const [studio, setStudio] = useState(null);
 	const [room, setRoom] = useState(null);
-	const [image, setImage] = useState('')
+	const [image, setImage] = useState('/noimage.jpg')
+	const [images, setImages] = useState([])
+	const [data, setData] = useState([])
+
+
+	const getBooksData = (books) => {
+		const _data = []
+		books.filter(x => x.status !== 'cancelled').forEach((book) => {
+			_data.push([book.starts_at, book.ends_at, book.user.email === read('email'), book.user.employee !== null && book.name === 'closed']);
+		})
+		return _data
+	}
 
 	useEffect(() => {
 		(async () => {
@@ -19,28 +33,18 @@ export default function Room({ roomId, studioId }) {
 			setStudio(await get(`/studios/${studioId}`))
 			setRoom(await get(`/studios/${studioId}/rooms/${roomId}`))
 			setImage(await getImage(`/studios/${studioId}/rooms/${roomId}/banner`))
+			setImages(await get(`/studios/${studioId}/rooms/${roomId}/images`))
+
+			setData(getBooksData(await getAuth(`/studios/${studioId}/rooms/${roomId}/bookings`, read('token'))))
 		})()
 	}, [])
 
 	if (studio === null || room === null)
 		return <div className="container">Загрузка...</div>
 
-	const storagePath = `${studio.id}/${room.id}/books`
-	console.log(room, studio)
-	const tryGetLocalStorageBooks = () => {
-		return typeof window !== 'undefined'
-			? localStorage.getItem(storagePath)
-				? JSON.parse(localStorage.getItem(storagePath))
-				: []
-			: []
-	}
 
-	const data = [
-		...tryGetLocalStorageBooks()
-	]
-
-	const startTime = +studio.opening_at.split(':')[0]
-	const closeTime = +studio.closing_at.split(':')[0] ? +studio.closing_at.split(':')[0] : 24
+	const startTime = +studio.opening_at.split(':')[0] + 5
+	const closeTime = +studio.closing_at.split(':')[0] + 5 ? +studio.closing_at.split(':')[0] + 5 : 24
 
 	return <article>
 		<div className="top mb-6">
@@ -50,6 +54,9 @@ export default function Room({ roomId, studioId }) {
 						   src={image} width={1040} height={360} alt=""/>
 				</div>
 				<div className="absolute container left-1/2 -translate-x-1/2 bottom-6">
+					{(read('studio_id') === "" + studioId || read('superuser') === 'true') &&
+						<a className="text-secondary text-sm inline-block mb-2" href={`/studio/${studioId}/room/${roomId}/edit`}><FontAwesomeIcon icon={faPen}/> Редактировать комнату</a>
+					}
 					<Link href={`/studio/${studio.id}`} className="text-text/70 block">
 						<span className="text-secondary block mb-1.5">{studio.name}</span>
 					</Link>
@@ -60,15 +67,14 @@ export default function Room({ roomId, studioId }) {
 		</div>
 
 		<div className="container">
-			<h2 className="text-2xl font-semibold">Забронировать</h2>
-
-			<p>{room.description}</p>
 
 			<Scheduler
 				from={startTime}
 				to={closeTime}
 				data={data}
-				storagePath={storagePath}/>
+				studioId={studio.id}
+				roomId={room.id}
+			/>
 
 			{room.equipment && <>
 				<h2 className="text-2xl font-semibold mb-3 mt-6">Оборудование</h2>
@@ -79,6 +85,17 @@ export default function Room({ roomId, studioId }) {
 				<h2 className="text-2xl font-semibold mb-3 mt-6">Дополнительные услуги</h2>
 				<p>{room.additional_services}</p>
 			</>}
+
+			{images.length > 0 &&
+				<div>
+				<h2 className="text-2xl font-semibold mb-3 mt-6">Дополнительные изображения:</h2>
+
+				<div className="grid grid-cols-3 gap-8 py-4">
+					{images.map((item, index) =>
+						<Image className="object-cover aspect-square" width={320} height={320} key={index} src={item} alt=""/>)}
+				</div>
+				</div>
+			}
 		</div>
 	</article>
 }

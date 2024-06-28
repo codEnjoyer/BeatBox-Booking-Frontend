@@ -24,19 +24,32 @@
 
 .ts-cell:hover{
 	background: #ffffff20;
+	cursor: pointer;
 }
 
 .ts-event {
 	position: relative;
 	--ts-bg-color: #ffffff30;
-	--content: "Репетиция";
 }
+
+.ts-closed {
+	position: relative;
+	--ts-bg-color: #945151;
+}
+.ts-my {
+	position: relative;
+	--ts-bg-color: #96d552;
+}
+
 .ts-active {
 	position: relative;
 	--content: "";
 	--ts-bg-color: #f1bc9470;
 }
+
 .ts-event::after,
+.ts-closed::after,
+.ts-my::after,
 .ts-active::after {
 	--heck: .25em;
 	position: absolute;
@@ -44,7 +57,7 @@
 	left: var(--heck);
 	width: calc(100% - var(--heck) * 2);
 	height: calc(100% - var(--heck) * 2);
-	content: var(--content);
+	content: "";
 	overflow: clip;
 	font-size: .75rem;
 	display: flex;

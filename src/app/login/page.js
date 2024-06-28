@@ -5,6 +5,7 @@ import {getAuth, post} from "@/utils/requests";
 import {useState} from "react";
 import {write} from "@/utils/storage";
 import { useRouter } from 'next/navigation'
+import Footer from "@/components/Footer";
 
 export default function Login() {
     const [result, setResult] = useState(null);
@@ -16,11 +17,12 @@ export default function Login() {
         if (res.access_token) {
             write('token', res.access_token)
             write('email', data.get('username'))
-            const fuckyou = await getAuth('/users/me', res.access_token);
-
-            // console.log(fuckyou)
-            // debugger;
-            write('nickname', fuckyou.nickname)
+            const authData = await getAuth('/users/me', res.access_token);
+            write('nickname', authData.nickname)
+            if (authData.employee !== null)
+                write('studio_id', authData.employee.studio_id)
+            if (authData.is_superuser)
+                write('superuser', true)
             window.location.replace(window.location.href.replace('/login', ''))
         }
     }
@@ -28,12 +30,12 @@ export default function Login() {
     const onSubmit = async e => {
         e.preventDefault();
         const data = new FormData(e.target)
-        console.log(await getRes(data))
+        await getRes(data)
     }
 
     return <>
         <Header />
-        <main className="flex justify-center py-10">
+        <main className="flex justify-center py-3">
             <div className="border-2 border-black p-5 rounded-xl">
                 <h1 className="font-semibold text-2xl mb-4">Войти</h1>
                 <form onSubmit={onSubmit} className="flex flex-col gap-2 mb-5">
@@ -50,5 +52,6 @@ export default function Login() {
                 <Link href="/register" className="text-secondary hover:underline">Еще нет аккаунта?</Link>
             </div>
         </main>
+        <Footer />
     </>
 }

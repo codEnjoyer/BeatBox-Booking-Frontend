@@ -3,7 +3,9 @@ import {useState, useEffect} from "react"
 import Image from "next/image"
 import Header from "@/components/Header"
 import StudioCard from "@/components/StudioCard"
+import Map from "@/components/Map"
 import { get, getImage } from '@/utils/requests'
+import Footer from "@/components/Footer";
 
 
 export default function Home() {
@@ -45,9 +47,13 @@ export default function Home() {
 							)
 							: "Загрузка..."}
 					</div>
+
+					<h2 className="text-2xl font-semibold my-6">На карте</h2>
+					<Map coordinates={studios.map(s => [s.latitude, s.longitude])} />
 				</div>
 
 			</main>
+			<Footer />
 		</>
 	);
 }
