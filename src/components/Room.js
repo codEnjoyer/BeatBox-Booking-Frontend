@@ -10,6 +10,7 @@ import {getImage} from "@/utils/requests";
 import {read} from "@/utils/storage";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPen} from "@fortawesome/free-solid-svg-icons";
+import Review from "@/components/Review";
 
 export default function Room({ roomId, studioId }) {
 	const [studio, setStudio] = useState(null);
@@ -17,6 +18,7 @@ export default function Room({ roomId, studioId }) {
 	const [image, setImage] = useState('/noimage.jpg')
 	const [images, setImages] = useState([])
 	const [data, setData] = useState([])
+	const [reviews, setReviews] = useState([])
 
 
 	const getBooksData = (books) => {
@@ -34,6 +36,7 @@ export default function Room({ roomId, studioId }) {
 			setRoom(await get(`/studios/${studioId}/rooms/${roomId}`))
 			setImage(await getImage(`/studios/${studioId}/rooms/${roomId}/banner`))
 			setImages(await get(`/studios/${studioId}/rooms/${roomId}/images`))
+			setReviews(await get(`/studios/${studioId}/rooms/${roomId}/reviews`))
 
 			setData(getBooksData(await getAuth(`/studios/${studioId}/rooms/${roomId}/bookings`, read('token'))))
 		})()
@@ -78,22 +81,33 @@ export default function Room({ roomId, studioId }) {
 
 			{room.equipment && <>
 				<h2 className="text-2xl font-semibold mb-3 mt-6">Оборудование</h2>
-				<p>{room.equipment}</p>
+				<p className="whitespace-pre-wrap">{room.equipment}</p>
 			</>}
 
 			{room.additional_services && <>
 				<h2 className="text-2xl font-semibold mb-3 mt-6">Дополнительные услуги</h2>
-				<p>{room.additional_services}</p>
+				<p className="whitespace-pre-wrap">{room.additional_services}</p>
 			</>}
 
 			{images.length > 0 &&
 				<div>
-				<h2 className="text-2xl font-semibold mb-3 mt-6">Дополнительные изображения:</h2>
+				<h2 className="text-2xl font-semibold mb-3 mt-6">Галерея</h2>
 
 				<div className="grid grid-cols-3 gap-8 py-4">
 					{images.map((item, index) =>
 						<Image className="object-cover aspect-square" width={320} height={320} key={index} src={item} alt=""/>)}
 				</div>
+				</div>
+			}
+
+
+			{reviews.length > 0 &&
+				<div>
+					<h2>Отзывы</h2>
+					<div className="flex flex-col gap-10 items-center">
+						{reviews.map((item, index) =>
+						<Review key={index} review={item} name={room.name} />)}
+					</div>
 				</div>
 			}
 		</div>

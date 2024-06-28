@@ -45,7 +45,7 @@ export default function EditRoom({ roomId=-1, studioId }) {
 
 	const onBannerSubmit = async e => {
 		e.preventDefault()
-		const res = await (`/studios/${studioId}/rooms/${roomId}/banner`, new FormData(e.target), read('token'))
+		const res = await putAuth(`/studios/${studioId}/rooms/${roomId}/banner`, new FormData(e.target), read('token'))
 		setImage(res)
 	}
 
@@ -115,7 +115,7 @@ export default function EditRoom({ roomId=-1, studioId }) {
 		</form>
 
 		<div className="container">
-			<h2 className="text-2xl font-semibold mb-3 mt-6">Дополнительные изображения:</h2>
+			<h2 className="text-2xl font-semibold mb-3 mt-6">Галерея</h2>
 			<form onSubmit={loadImages}>
 				<input type="file" name="files" multiple={true} />
 				<button type="submit" className="p-2 bg-accent border-[1px] border-text hover:bg-accent/80">Загрузить</button>

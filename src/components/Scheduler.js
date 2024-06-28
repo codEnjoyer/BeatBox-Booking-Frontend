@@ -135,8 +135,10 @@ export default function Scheduler({from, to, data, studioId, roomId}) {
 		const end = moment(bookDate.current + bookEnd.current, 'D MMM, YYYY H:mm')
 		console.log(start, end)
 
+		const name = new FormData(e.target).get('name')
+
 		const data = {
-			name: new FormData(e.target).get('name'),
+			name: name,
 			surname: null,
 			starts_at: start.toISOString(),
 			ends_at: end.toISOString()
@@ -148,7 +150,9 @@ export default function Scheduler({from, to, data, studioId, roomId}) {
 		const newBooks = [
 			...books, [
 			start.format(),
-			end.format()
+			end.format(),
+			true,
+			name === 'closed'
 		]]
 
 		setBooks(newBooks)

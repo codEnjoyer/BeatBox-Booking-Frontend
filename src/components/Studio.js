@@ -41,6 +41,7 @@ export default function Studio({ id }) {
 	const [reviewDetail, setReviewDetail] = useState("")
 	const [reviewRating, setReviewRating] = useState(0)
 	const [_, update] = useState(0)
+	const [roomById, setRoomById] = useState({})
 
 	useEffect(() => {
 		setDomLoaded(true);
@@ -50,17 +51,20 @@ export default function Studio({ id }) {
 		(async () => {
 			const _studio = await get(`/studios/${id}`)
 			const _rooms = await get(`/studios/${id}/rooms`)
+			const _roomById = {}
 			const rooms = []
 			for (let room of _rooms) {
 				const roomBanner = await getImage(`/studios/${id}/rooms/${room.id}/banner`)
 				console.log(roomBanner)
 				rooms.push({...room, image: roomBanner})
+				_roomById[room.id] = room
 			}
 			const reviews = await get(`/studios/${id}/reviews`)
 			const _banner = await getImage(`/studios/${id}/banner`)
 			console.log(_banner)
 			console.log(_studio)
 			setStudio({..._studio, rooms: rooms, image: _banner, reviews: reviews})
+			setRoomById(_roomById)
 		})()
 	}, [])
 
@@ -70,8 +74,9 @@ export default function Studio({ id }) {
 		const data = {
 			"grade": reviewRating,
 			"text": formData.get('text'),
-			"room_id": formData.get('room_id')
+			"room_id": +formData.get('room')
 		}
+		debugger;
 		const res = await postAuth(`/studios/${id}/reviews`, JSON.stringify(data), read('token'), {'Content-Type': 'application/json'})
 		if (res.detail && typeof res.detail === 'string')
 			setReviewDetail(res.detail)
@@ -137,7 +142,7 @@ export default function Studio({ id }) {
 									<p className="mb-2">Отзыв:</p>
 									<textarea name="text" required rows={1} className="w-full text-bg p-1 px-2 mb-3"/>
 									<p className="mb-2">Оценка:</p>
-									<Rating className="mt-2 mb-6" value={reviewRating} cancel={false}
+									<Rating className="mt-2 mb-6 w-fit" value={reviewRating} cancel={false}
 											onChange={(e) => setReviewRating(e.value)}/>
 
 									<p className="mb-2">Комната:</p>
@@ -157,7 +162,7 @@ export default function Studio({ id }) {
 							{studio.reviews &&
 								<div className="flex flex-col gap-10 items-center">
 									{studio.reviews.map((review, index) =>
-										<Review review={review} key={index}/>
+										<Review review={review} key={index} roomById={roomById} />
 									)}
 								</div>
 							}
