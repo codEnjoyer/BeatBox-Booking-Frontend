@@ -22,7 +22,7 @@ export default function Header() {
 	return (
 		<header className="flex justify-between items-center container py-5 relative">
 			<Link href="/" className="text-2xl font-semibold flex gap-2 items-center">
-				<Image src="/logo.svg" alt="" width={32} height={32} /> BoomBox Booking</Link>
+				<Image src="/logo.svg" alt="" width={32} height={32} />BeatBox Booking</Link>
 			{link}
 		</header>
 	)

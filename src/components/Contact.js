@@ -8,7 +8,7 @@ import {faTelegram, faWhatsapp, faVk} from '@fortawesome/free-brands-svg-icons'
 
 export default function Contact({ contact }) {
 	if (!['contact_phone_number', 'tg', 'vk', 'whats_app'].includes(contact.name) || contact.value === null)
-		return <></>
+		return
 
 	const byType = {
 		contact_phone_number: faPhone,
