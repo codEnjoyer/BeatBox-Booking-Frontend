@@ -22,12 +22,12 @@ export default function Profile() {
 	}
 
 	useEffect(() => {
+		/*(async() => {
+			setBooks(await getAuth(`/users/me/bookings`, read('token')))
+		})()*/
 		setDomLoaded(true);
 		if (window && !read('token'))
 			redirect(window, '/profile', '/login')
-		(async() => {
-			setBooks(await getAuth(`/users/me/bookings`))
-		})()
 	}, [editing])
 
 	const onSubmit = async e => {
